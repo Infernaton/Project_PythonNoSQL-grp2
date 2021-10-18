@@ -3,11 +3,11 @@ from flask import Flask
 app = Flask(__name__)
 
 
-@app.route("/", methods=["POST", "GET"])
+@app.route("/")
 def hello_world():
     return {
             'message': 'Never gonna give you Up !'
-            }
+           }
 
 
 if __name__ == '__main__':
