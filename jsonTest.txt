@@ -1,18 +1,35 @@
 GET input: {
 	request: 'GET',
 	path: '/users',
-	data: {
-		min: 0,
-		max: 50,
-		filter: .....
+	data: {}
+}
+data possible:{
+	min: 1,
+	max: 10,
+	order: [
+		-name,
+		-firstname,
+		-age
+	],
+	searchFor: {
+		name: '',
+		firstName: '',
+		age: '>20',
 	}
 }
+
+Erreur Possible:
+	-001: !min < max
+	-002: MIN value can't be negative
+	-003: Field not recognize
+	-004: Field sorting not specified or incorrect
+	-005: Result search for can't be found anywhere
 
 GET return:
 {
 	status: 200,
 	errorCode: 000,
-	msg: "",
+	errorMsg: "Success",
 	users:[
 		{
 			id=1,
@@ -35,17 +52,32 @@ GET return:
 	]
 }
 
-DELETE/POST input:
+POST input:
 {
 	request: 'POST',
-	path: '/users',
+	path: '/user?id=1',
 	userID: 1,
 }
+
+Erreur Possible:
+	-006: ID not specified
+	-007: ID already created
+
+DELETE input:
+{
+	request: 'DELETE',
+	path: '/user/del?id=1',
+	userID: 1,
+}
+
+Erreur Possible:
+	-006: ID not specified
+	-007: ID already created
 
 PATCH input:
 {
 	request: 'PATCH',
-	path: '/users',
+	path: '/user/modif?id=1',
 	userID: 1,
 	modify: {
 		name:'',
@@ -54,9 +86,13 @@ PATCH input:
 	}
 }
 
+Erreur Possible:
+	-006: ID not specified
+	-007: ID already created
+
 DELETE/POST/PATCH return:
 {
 	status: 200,
 	errorCode: 000,
-	msg: "",
+	errorMsg: "Success",
 }
