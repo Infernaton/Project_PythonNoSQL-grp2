@@ -1,15 +1,15 @@
-GET input: {
-	request: 'GET',
-	path: '/users',
+GET input: 
+path: '/users'
+{
 	data: {}
 }
 data possible:{
 	min: 1,
 	max: 10,
 	order: [
-		-name,
-		-firstname,
-		-age
+		'-name',
+		'-firstname',
+		'+age'
 	],
 	searchFor: {
 		name: '',
@@ -53,10 +53,11 @@ GET return:
 }
 
 POST input:
+path: '/users/1',
 {
-	request: 'POST',
-	path: '/user?id=1',
-	userID: 1,
+	prenom: ...,
+	nom:...,
+	age:...
 }
 
 Erreur Possible:
@@ -64,9 +65,8 @@ Erreur Possible:
 	-007: ID already created
 
 DELETE input:
+path: '/users/1',
 {
-	request: 'DELETE',
-	path: '/user/del?id=1',
 	userID: 1,
 }
 
@@ -75,9 +75,8 @@ Erreur Possible:
 	-007: ID already created
 
 PATCH input:
+path: '/users/1',
 {
-	request: 'PATCH',
-	path: '/user/modif?id=1',
 	userID: 1,
 	modify: {
 		name: '',
