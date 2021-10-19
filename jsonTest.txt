@@ -1,0 +1,62 @@
+GET input: {
+	request: 'GET',
+	path: '/users',
+	data: {
+		min: 0,
+		max: 50,
+		filter: .....
+	}
+}
+
+GET return:
+{
+	status: 200,
+	errorCode: 000,
+	msg: "",
+	users:[
+		{
+			id=1,
+			firstName:"Max",
+			lastName:"Dupond",
+			age:"21"
+		},
+		{
+			id=2,
+			firstName:"Max",
+			lastName:"Dupond",
+			age:"21"
+		},
+		{
+			id=3,
+			firstName:"Max",
+			lastName:"Dupond",
+			age:"21"
+		},
+	]
+}
+
+DELETE/POST input:
+{
+	request: 'POST',
+	path: '/users',
+	userID: 1,
+}
+
+PATCH input:
+{
+	request: 'PATCH',
+	path: '/users',
+	userID: 1,
+	modify: {
+		name:'',
+		firstname:'',
+		age: '24',
+	}
+}
+
+DELETE/POST/PATCH return:
+{
+	status: 200,
+	errorCode: 000,
+	msg: "",
+}
