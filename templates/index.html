@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <title> {{title}} </title>
+  </head>
+  <body>
+    {% for elm in data %}
+    <div>
+      <h1> Hello, {{data.name}} </h1>
+      <p>Ton prénom est  {{data.surname}}</p>
+      <p>Ton age est  {{data.age}}</p>
+    </div>
+    {% endfor %}
+  </body>
+</html>
