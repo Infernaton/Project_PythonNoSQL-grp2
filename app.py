@@ -7,11 +7,23 @@ app = Flask(__name__)
 @app.route("/")
 def hello_world():
     # dictionnaire de données
-    data = {
-        'name': 'yann',
-        'surname': 'macOS',
-        'age': 64
-    }
+    data = [
+        {
+            'name': 'yann',
+            'surname': 'macOS',
+            'age': 64
+        },
+        {
+            'name': 'yann',
+            'surname': 'macOS',
+            'age': 64
+        },
+        {
+            'name': 'yann',
+            'surname': 'macOS',
+            'age': 64
+        },
+    ]
 
     # affichage
     return render_template('index.html', title='home', data=data)

@@ -80,8 +80,8 @@ PATCH input:
 	path: '/user/modif?id=1',
 	userID: 1,
 	modify: {
-		name:'',
-		firstname:'',
+		name: '',
+		firstname: '',
 		age: '24',
 	}
 }
