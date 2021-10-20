@@ -1,39 +1,14 @@
 # -* - coding: Utf - 8 -*-
-<<<<<<< Updated upstream
-from flask import Flask, render_template, request
-=======
 import flask
-from flask import Flask, render_template, request, make_response
+from flask import Flask,  request, make_response
 import os
->>>>>>> Stashed changes
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def hello_world():
-    # dictionnaire de données
-    data = [
-        {
-            'name': 'yann',
-            'surname': 'macOS',
-            'age': 64
-        },
-        {
-            'name': 'yann',
-            'surname': 'macOS',
-            'age': 64
-        },
-        {
-            'name': 'yann',
-            'surname': 'macOS',
-            'age': 64
-        },
-    ]
-<<<<<<< Updated upstream
-
-    # affichage
-    return render_template('index.html', title='home', data=data)
+    return "hello world"
 
 
 @app.route("/users/<id>", methods=["PATCH", "DELETE", "POST"])
@@ -58,10 +33,8 @@ def modify_user(id):
         "error_code": error_code,
         "error_message": error_message
     }
-=======
 
-    # affichage
-    return render_template('index.html', title='home', data=data)
+    return "modify user"
 
 
 @app.route("/users")
@@ -96,7 +69,6 @@ def not_found(error):
 @app.errorhandler(500)
 def internal_error(error):
     return error
->>>>>>> Stashed changes
 
 
 if __name__ == '__main__':
