@@ -37,7 +37,7 @@ def modify_user(id):
 """
 
 
-@app.route("/user/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
+@app.route("/users/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 def user(id):
     if request.method == "POST":
         return addElement(request.json, id, user)
@@ -46,7 +46,7 @@ def user(id):
     elif request.method == "PATCH":
         return "PATCH"
     elif request.method == "GET":
-        return get.getuser(id)
+        return get.getusers()
 
 
 @app.route("/users")
