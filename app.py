@@ -2,7 +2,8 @@
 
 import flask
 from flask import Flask,  request, make_response
-from mongo import clients
+
+import get
 import os
 
 app = Flask(__name__)
@@ -42,13 +43,12 @@ def user(id):
     elif request.method == "PATCH":
         return "PATCH"
     elif request.method == "GET":
-        users = clients().testdb.users.find()
-        return flask.jsonify([user for user in users])
+        return get.getdatas()
 
 
 @app.route("/users")
 def get_users():
-    return "GET USERS"
+    return get.getdatas()
 
 
 @app.route("/<user>/categories/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
