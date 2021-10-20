@@ -35,10 +35,10 @@ def modify_user(id):
 """
 
 
-@app.route("/users/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
-def user(id):
+@app.route("/users/<id_elt>", methods=["POST", "DELETE", "PATCH", "GET"])
+def user(id_elt):
     if request.method == "POST":
-        return addElement(request.json, id, user)
+        return addElement(request.json, id_elt, user)
     elif request.method == "DELETE":
         return "DELETE"
     elif request.method == "PATCH":
@@ -52,10 +52,10 @@ def get_users():
     return get.getusers()
 
 
-@app.route("/<user>/categories/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
-def category(user, id):
+@app.route("/<user>/categories/<id_elt>", methods=["POST", "DELETE", "PATCH", "GET"])
+def category(user, id_elt):
     if request.method == "POST":
-        return addElement(request.json, id, user)
+        return addElement(request.json, id_elt, user)
     elif request.method == "DELETE":
         return "DELETE"
     elif request.method == "PATCH":
@@ -69,10 +69,10 @@ def get_categories(user):
     return "GET USERS"
 
 
-@app.route("/<user>/<category>/objects/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
-def object_elt(user, category, id):
+@app.route("/<user>/<category>/objects/<id_elt>", methods=["POST", "DELETE", "PATCH", "GET"])
+def object_elt(user, category, id_elt):
     if request.method == "POST":
-        return addElement(request.json, id, user)
+        return addElement(request.json, id_elt, user)
     elif request.method == "DELETE":
         return "DELETE"
     elif request.method == "PATCH":
