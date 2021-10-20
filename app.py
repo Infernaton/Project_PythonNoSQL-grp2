@@ -1,5 +1,11 @@
 # -* - coding: Utf - 8 -*-
+<<<<<<< Updated upstream
 from flask import Flask, render_template, request
+=======
+import flask
+from flask import Flask, render_template, request, make_response
+import os
+>>>>>>> Stashed changes
 
 app = Flask(__name__)
 
@@ -24,6 +30,7 @@ def hello_world():
             'age': 64
         },
     ]
+<<<<<<< Updated upstream
 
     # affichage
     return render_template('index.html', title='home', data=data)
@@ -51,6 +58,45 @@ def modify_user(id):
         "error_code": error_code,
         "error_message": error_message
     }
+=======
+
+    # affichage
+    return render_template('index.html', title='home', data=data)
+
+
+@app.route("/users")
+def getDatas():
+    liste = []
+    listem = []
+    for parent, dnames, fnames in os.walk("users"):
+        for fname in fnames:
+            filename = os.path.join(parent, fname)
+            liste.append(filename)
+            listem = liste[0:int(request.args.get('limit'))]
+
+    arguments = request.args
+    if 'limit' in arguments:
+        return flask.jsonify(listem)
+    elif int(request.args.get('limit') > len(liste)):
+        return {
+            'error': 'The limit can not be higher than' + len(liste),
+            'err_code': 500
+        }
+    return {
+        'error': 'you need to specify limit',
+        'err_code': 500
+    }
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return error
+
+
+@app.errorhandler(500)
+def internal_error(error):
+    return error
+>>>>>>> Stashed changes
 
 
 if __name__ == '__main__':
