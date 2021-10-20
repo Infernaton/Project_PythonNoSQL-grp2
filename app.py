@@ -4,6 +4,7 @@ import flask
 from flask import Flask,  request, make_response
 from mongo import clients
 import os
+from methods.post import *
 
 app = Flask(__name__)
 
