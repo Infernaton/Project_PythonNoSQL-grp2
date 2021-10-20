@@ -32,52 +32,54 @@ def modify_user(id):
 @app.route("/users/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 def user(id):
     if request.method == "POST":
-        return ("POST")
+        return "POST"
     elif request.method == "DELETE":
-        return ("DELETE")
+        return "DELETE"
     elif request.method == "PATCH":
-        return ("PATCH")
+        return "PATCH"
     elif request.method == "GET":
-        return ("GET")
+        todos = db.todos.find()
+        return flask.jsonify([todo for todo in todos])
+        return "GET"
 
 
 @app.route("/users")
 def get_users():
-    return ("GET USERS")
+    return "GET USERS"
 
 
 @app.route("/<user>/categories/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 def categorie(user, id):
     if request.method == "POST":
-        return ("POST")
+        return "POST"
     elif request.method == "DELETE":
-        return ("DELETE")
+        return "DELETE"
     elif request.method == "PATCH":
-        return ("PATCH")
+        return "PATCH"
     elif request.method == "GET":
-        return ("GET")
+        return "GET"
 
 
 @app.route("/<user>/categories")
 def get_categories(user):
-    return ("GET USERS")
+    return "GET USERS"
 
 
 @app.route("/<user>/<categorie>/objects/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 def object(user, categorie, id):
     if request.method == "POST":
-        return ("POST")
+        return "POST"
     elif request.method == "DELETE":
-        return ("DELETE")
+        return "DELETE"
     elif request.method == "PATCH":
-        return ("PATCH")
+        return "PATCH"
     elif request.method == "GET":
-        return ("GET")
+        return "GET"
 
 
 @app.route("/<user>/<categorie>/objects")
 def get_objects(user, categorie):
-    return ("GET USERS")
+    return "GET USERS"
 
 
 if __name__ == '__main__':
