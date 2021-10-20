@@ -3,32 +3,7 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-
-@app.route("/")
-def hello_world():
-    # dictionnaire de données
-    data = [
-        {
-            'name': 'yann',
-            'surname': 'macOS',
-            'age': 64
-        },
-        {
-            'name': 'yann',
-            'surname': 'macOS',
-            'age': 64
-        },
-        {
-            'name': 'yann',
-            'surname': 'macOS',
-            'age': 64
-        },
-    ]
-
-    # affichage
-    return render_template('index.html', title='home', data=data)
-
-
+"""
 @app.route("/users/<id>", methods=["PATCH", "DELETE", "POST"])
 def modify_user(id):
     error_code = "000"
@@ -51,6 +26,58 @@ def modify_user(id):
         "error_code": error_code,
         "error_message": error_message
     }
+"""
+
+
+@app.route("/users/<id>")
+def user(id):
+    if request.method == "POST":
+        print("POST")
+    elif request.method == "DELETE":
+        print("DELETE")
+    elif request.method == "PATCH":
+        print("PATCH")
+    elif request.method == "GET":
+        print("GET")
+
+
+@app.route("/users", methods=["GET"])
+def get_users():
+    print("GET USERS")
+
+
+@app.route("/<user>/categories/<id>")
+def categorie(user, id):
+    if request.method == "POST":
+        print("POST")
+    elif request.method == "DELETE":
+        print("DELETE")
+    elif request.method == "PATCH":
+        print("PATCH")
+    elif request.method == "GET":
+        print("GET")
+
+
+@app.route("/<user>/categories", methods=["GET"])
+def get_categories(user):
+    print("GET USERS")
+
+
+@app.route("/<user>/<categorie>/objects/<id>")
+def object(user, categorie, id):
+    if request.method == "POST":
+        print("POST")
+    elif request.method == "DELETE":
+        print("DELETE")
+    elif request.method == "PATCH":
+        print("PATCH")
+    elif request.method == "GET":
+        print("GET")
+
+
+@app.route("/<user>/<categorie>/objects", methods=["GET"])
+def get_objects(user, categorie):
+    print("GET USERS")
 
 
 if __name__ == '__main__':
