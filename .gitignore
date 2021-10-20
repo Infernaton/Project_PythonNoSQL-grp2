@@ -2,3 +2,5 @@
 /.idea/
 __pycache__/app.cpython-310.pyc
 *.pyc
+__pycache__/app.cpython-310.pyc
+__pycache__/mongo.cpython-310.pyc
