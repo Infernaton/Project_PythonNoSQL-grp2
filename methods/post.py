@@ -1,6 +1,5 @@
-from mongo import clients
 from methods.jsonToReturn import *
-import flask
+from methods.gestionDB import *
 
 
 def addElement(json, id_elt, user="", category=""):
@@ -33,34 +32,6 @@ def addElement(json, id_elt, user="", category=""):
         return id_exist(clients().PythonProject.firstTest, id_elt, json)
 
 
-def find_id_user(name):
-    """
-    Find a id_user with a given name
-    :param name:
-    :return: the id if exist
-    """
-    id = clients().PythonProject.firstTest.find({"name": name}, {"_id": 1})
-    id = flask.jsonify([user for user in id]).json
-    if len(id) != 0:
-        return id[0]["_id"]
-    else:
-        return False
-
-
-def find_id_category(category):
-    """
-    find a id_category with a given category name
-    :param category:
-    :return: the id if exist
-    """
-    id = clients().PythonProject.category.find({"name": category}, {"_id": 1})
-    id = flask.jsonify([user for user in id]).json
-    if len(id) != 0:
-        return id[0]["_id"]
-    else:
-        return False
-
-
 def id_exist(db_name, id_elt, json):
     """
     Test if the element we try to add have a correct id, test if the place with the id is not already taken
@@ -73,6 +44,6 @@ def id_exist(db_name, id_elt, json):
     test_id = flask.jsonify([user for user in test_id]).json
     if len(test_id) == 0:
         db_name.insert_one(json)
-        return json_return(0, "Successfully Add !")
+        return json_return(0, "Successfully add !")
     else:
         return json_return(9, "ID already taken")
