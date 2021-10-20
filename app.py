@@ -29,55 +29,55 @@ def modify_user(id):
 """
 
 
-@app.route("/users/<id>")
+@app.route("/users/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 def user(id):
     if request.method == "POST":
-        print("POST")
+        return ("POST")
     elif request.method == "DELETE":
-        print("DELETE")
+        return ("DELETE")
     elif request.method == "PATCH":
-        print("PATCH")
+        return ("PATCH")
     elif request.method == "GET":
-        print("GET")
+        return ("GET")
 
 
-@app.route("/users", methods=["GET"])
+@app.route("/users")
 def get_users():
-    print("GET USERS")
+    return ("GET USERS")
 
 
-@app.route("/<user>/categories/<id>")
+@app.route("/<user>/categories/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 def categorie(user, id):
     if request.method == "POST":
-        print("POST")
+        return ("POST")
     elif request.method == "DELETE":
-        print("DELETE")
+        return ("DELETE")
     elif request.method == "PATCH":
-        print("PATCH")
+        return ("PATCH")
     elif request.method == "GET":
-        print("GET")
+        return ("GET")
 
 
-@app.route("/<user>/categories", methods=["GET"])
+@app.route("/<user>/categories")
 def get_categories(user):
-    print("GET USERS")
+    return ("GET USERS")
 
 
-@app.route("/<user>/<categorie>/objects/<id>")
+@app.route("/<user>/<categorie>/objects/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 def object(user, categorie, id):
     if request.method == "POST":
-        print("POST")
+        return ("POST")
     elif request.method == "DELETE":
-        print("DELETE")
+        return ("DELETE")
     elif request.method == "PATCH":
-        print("PATCH")
+        return ("PATCH")
     elif request.method == "GET":
-        print("GET")
+        return ("GET")
 
 
-@app.route("/<user>/<categorie>/objects", methods=["GET"])
+@app.route("/<user>/<categorie>/objects")
 def get_objects(user, categorie):
-    print("GET USERS")
+    return ("GET USERS")
 
 
 if __name__ == '__main__':
