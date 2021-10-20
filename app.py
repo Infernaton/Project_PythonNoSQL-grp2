@@ -1,7 +1,6 @@
-# -* - coding: Utf - 8 -*-
-import flask
-from flask import Flask,  request, make_response
 import os
+from flask import Flask, request, make_response
+from methods.post import *
 
 app = Flask(__name__)
 
@@ -34,7 +33,7 @@ def modify_user(id):
 @app.route("/users/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 def user(id):
     if request.method == "POST":
-        return "POST"
+        return addElement(request.json, id)
     elif request.method == "DELETE":
         return "DELETE"
     elif request.method == "PATCH":
@@ -42,7 +41,6 @@ def user(id):
     elif request.method == "GET":
         todos = db.todos.find()
         return flask.jsonify([todo for todo in todos])
-        return "GET"
 
 
 @app.route("/users")
@@ -53,7 +51,7 @@ def get_users():
 @app.route("/<user>/categories/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 def categorie(user, id):
     if request.method == "POST":
-        return "POST"
+        return addElement(request.json, id, user)
     elif request.method == "DELETE":
         return "DELETE"
     elif request.method == "PATCH":
@@ -70,7 +68,7 @@ def get_categories(user):
 @app.route("/<user>/<categorie>/objects/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 def object(user, categorie, id):
     if request.method == "POST":
-        return "POST"
+        return addElement(request.json, id, user, categorie)
     elif request.method == "DELETE":
         return "DELETE"
     elif request.method == "PATCH":
@@ -81,8 +79,6 @@ def object(user, categorie, id):
 
 @app.route("/<user>/<categorie>/objects")
 def get_objects(user, categorie):
-    return "GET USERS"
-
     return "modify user"
 
 
