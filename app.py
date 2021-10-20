@@ -1,7 +1,7 @@
 # -* - coding: Utf - 8 -*-
 
 import flask
-from flask import Flask,  request
+from flask import Flask, request
 
 from methods import get
 import os
@@ -10,28 +10,11 @@ from methods.post import *
 app = Flask(__name__)
 
 """
-@app.route("/users/<id>", methods=["PATCH", "DELETE", "POST"])
-def modify_user(id):
-    error_code = "000"
-    error_message = "Success !"
-    if request.method == "PATCH":
-        json_data = request.json["modify"]
-        with open(f"users/{id}.txt", "r+") as f:
-            content = f.read().split("\n")
-            if json_data["firstname"] != "":
-                content[0] = json_data["firstname"]
-            if json_data["name"] != "":
-                content[1] = json_data["name"]
-            if json_data["age"] != "":
-                content[2] = json_data["age"]
-            f.seek(0)
-            f.write('\n'.join(content))
-
-    return {
-        "status": 200,
-        "error_code": error_code,
-        "error_message": error_message
-    }
+User input of any element
+{
+    "name": element_name,
+    "data": {}
+}
 """
 
 
