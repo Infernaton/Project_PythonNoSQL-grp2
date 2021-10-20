@@ -38,13 +38,13 @@ def modify_user(id):
 @app.route("/users/<id_elt>", methods=["POST", "DELETE", "PATCH", "GET"])
 def user(id_elt):
     if request.method == "POST":
-        return addElement(request.json, id_elt, user)
+        return addElement(request.json, id_elt)
     elif request.method == "DELETE":
         return "DELETE"
     elif request.method == "PATCH":
         return "PATCH"
     elif request.method == "GET":
-        return get.getusers()
+        return get.getuser(id_elt)
 
 
 @app.route("/users")
@@ -72,7 +72,7 @@ def get_categories(user):
 @app.route("/<user>/<category>/objects/<id_elt>", methods=["POST", "DELETE", "PATCH", "GET"])
 def object_elt(user, category, id_elt):
     if request.method == "POST":
-        return addElement(request.json, id_elt, user)
+        return addElement(request.json, id_elt, user, category)
     elif request.method == "DELETE":
         return "DELETE"
     elif request.method == "PATCH":
