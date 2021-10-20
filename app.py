@@ -5,12 +5,7 @@ import os
 
 app = Flask(__name__)
 
-
-@app.route("/")
-def hello_world():
-    return "hello world"
-
-
+"""
 @app.route("/users/<id>", methods=["PATCH", "DELETE", "POST"])
 def modify_user(id):
     error_code = "000"
@@ -33,6 +28,60 @@ def modify_user(id):
         "error_code": error_code,
         "error_message": error_message
     }
+"""
+
+
+@app.route("/users/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
+def user(id):
+    if request.method == "POST":
+        return "POST"
+    elif request.method == "DELETE":
+        return "DELETE"
+    elif request.method == "PATCH":
+        return "PATCH"
+    elif request.method == "GET":
+        todos = db.todos.find()
+        return flask.jsonify([todo for todo in todos])
+        return "GET"
+
+
+@app.route("/users")
+def get_users():
+    return "GET USERS"
+
+
+@app.route("/<user>/categories/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
+def categorie(user, id):
+    if request.method == "POST":
+        return "POST"
+    elif request.method == "DELETE":
+        return "DELETE"
+    elif request.method == "PATCH":
+        return "PATCH"
+    elif request.method == "GET":
+        return "GET"
+
+
+@app.route("/<user>/categories")
+def get_categories(user):
+    return "GET USERS"
+
+
+@app.route("/<user>/<categorie>/objects/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
+def object(user, categorie, id):
+    if request.method == "POST":
+        return "POST"
+    elif request.method == "DELETE":
+        return "DELETE"
+    elif request.method == "PATCH":
+        return "PATCH"
+    elif request.method == "GET":
+        return "GET"
+
+
+@app.route("/<user>/<categorie>/objects")
+def get_objects(user, categorie):
+    return "GET USERS"
 
     return "modify user"
 
