@@ -1,13 +1,11 @@
 # -* - coding: Utf - 8 -*-
 
 import flask
-from flask import Flask,  request, make_response
+from flask import Flask,  request
 
-import get
+from methods import get
 import os
 from methods.post import *
-from methods.jsonToReturn import *
-
 
 app = Flask(__name__)
 
@@ -55,7 +53,7 @@ def get_users():
 
 
 @app.route("/<user>/categories/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
-def categorie(user, id):
+def category(user, id):
     if request.method == "POST":
         return addElement(request.json, id, user)
     elif request.method == "DELETE":
@@ -71,8 +69,8 @@ def get_categories(user):
     return "GET USERS"
 
 
-@app.route("/<user>/<categorie>/objects/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
-def object(user, categorie, id):
+@app.route("/<user>/<category>/objects/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
+def object_elt(user, category, id):
     if request.method == "POST":
         return addElement(request.json, id, user)
     elif request.method == "DELETE":
@@ -83,33 +81,9 @@ def object(user, categorie, id):
         return "GET"
 
 
-@app.route("/<user>/<categorie>/objects")
-def get_objects(user, categorie):
+@app.route("/<user>/<category>/objects")
+def get_objects(user, category):
     return "GET USERS"
-
-
-@app.route("/users")
-def getDatas():
-    liste = []
-    listem = []
-    for parent, dnames, fnames in os.walk("users"):
-        for fname in fnames:
-            filename = os.path.join(parent, fname)
-            liste.append(filename)
-            listem = liste[0:int(request.args.get('limit'))]
-
-    arguments = request.args
-    if 'limit' in arguments:
-        return flask.jsonify(listem)
-    elif int(request.args.get('limit') > len(liste)):
-        return {
-            'error': 'The limit can not be higher than' + len(liste),
-            'err_code': 500
-        }
-    return {
-        'error': 'you need to specify limit',
-        'err_code': 500
-    }
 
 
 @app.errorhandler(404)
