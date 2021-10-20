@@ -1,6 +1,8 @@
 # -* - coding: Utf - 8 -*-
+
 import flask
 from flask import Flask,  request, make_response
+from mongo import clients
 import os
 
 app = Flask(__name__)
@@ -40,9 +42,8 @@ def user(id):
     elif request.method == "PATCH":
         return "PATCH"
     elif request.method == "GET":
-        todos = db.todos.find()
-        return flask.jsonify([todo for todo in todos])
-        return "GET"
+        users = clients().testdb.users.find()
+        return flask.jsonify([user for user in users])
 
 
 @app.route("/users")

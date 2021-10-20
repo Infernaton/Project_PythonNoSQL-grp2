@@ -5,9 +5,12 @@ import pymongo
 
 def main():
     """The main function"""
+
     password = "user"
-    client = pymongo.MongoClient(f"mongodb+srv://user:user@pythonproject.d94wv.mongodb.net/?retryWrites=true&w=majority")
-    db = client.testdb
+    user = "user"
+    client = pymongo.MongoClient(
+        f"mongodb+srv://{user}:{password}@pythonproject.d94wv.mongodb.net/?retryWrites=true&w=majority")
+    db = client.tesdb
     collection = db.users
     for i in range(1, 11):
         user = {
@@ -22,3 +25,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+def clients():
+    return pymongo.MongoClient(f"mongodb+srv://user:user@pythonproject.d94wv.mongodb.net/?retryWrites=true&w=majority")
