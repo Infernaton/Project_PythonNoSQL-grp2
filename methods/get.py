@@ -1,6 +1,6 @@
 import flask
 from pymongo.errors import BulkWriteError
-
+from methods import filter
 from mongo import clients
 
 
@@ -9,7 +9,9 @@ def get_users(json):
     get all the users
     :return: the list of users
     """
-    users = clients().PythonProject.users.find()
+    if not json:
+        json = {}
+    users = clients().PythonProject.users.find(filter.all_filter(json))
     return flask.jsonify([user for user in users])
 
 
@@ -30,10 +32,14 @@ def get_categories(json, user):
     :param user: name of the user
     :return: list of user's categories
     """
+    if not json:
+        json = {}
     try:
         users = clients().PythonProject.users.find({"name": user})
         client = ([user["_id"] for user in users])
-        categories = clients().PythonProject.categories.find({"user_id": client[0]})
+
+        json["user_id"] = client[0]
+        categories = clients().PythonProject.categories.find(filter.all_filter(json))
     except BulkWriteError as e:
 
         return flask.jsonify(message="error",
@@ -68,12 +74,16 @@ def get_objects(json, user, cat):
     :param cat: name of category
     :return: the  object belonging to a person and a category
     """
+    if not json:
+        json = {}
     try:
         categories = clients().PythonProject.categories.find({"name": cat})
         category = ([categorie["_id"] for categorie in categories])
         users = clients().PythonProject.users.find({"name": user})
-        use = ([i["_id"] for i in users])
-        objets = clients().PythonProject.objects.find({"category_id": category[0], "user_id": use[0]})
+        user = ([i["_id"] for i in users])
+        json["user_id"] = user[0]
+        json["user_id"] = category[0]
+        objets = clients().PythonProject.objects.find(filter.all_filter(json))
     except BulkWriteError as e:
 
         return flask.jsonify(message="error",
