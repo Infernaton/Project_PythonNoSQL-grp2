@@ -25,10 +25,10 @@ User input of any element
 
 @app.route("/test_add", methods=["POST"])
 def methods():
-    """for i in range(1, 11):
+    for i in range(1, 11):
         var = addElement({"name": f"user{i}", "data": {}}, i)
     for i in range(1, 11):
-        var = addElement({"name": f"category{i}", "data": {}}, i, f"user{i}")"""
+        var = addElement({"name": f"category{i}", "data": {}}, i, f"user{i}")
     for i in range(1, 11):
         var = addElement({"name": f"object{i}", "data": {}}, i, f"user{i}", f"category{i}")
     return var
