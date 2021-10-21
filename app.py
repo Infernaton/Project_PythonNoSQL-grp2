@@ -26,6 +26,15 @@ User input of any element
 
 @app.route("/users/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 def user(id):
+    """
+    action on a certain id from users:
+        POST: create a user with the current id, error if the id is already taken
+        DELETE: remove the user by id
+        PATCH: modify the user by id
+        GET: get data of the user by id
+    :param id: user_id
+    :return: the result of the request
+    """
     if request.method == "POST":
         return addElement(request.json, id)
     elif request.method == "DELETE":
@@ -44,6 +53,16 @@ def users_limited(value):
 
 @app.route("/<user>/categories/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 def category(user, id):
+    """
+    action on a certain id from categories:
+        POST: create a category with the current id in the current user profile, error if the id is already taken
+        DELETE: remove the category by id
+        PATCH: modify the category by id
+        GET: get data of the category by id
+    :param user: the user profile where we want to add the category
+    :param id: category id
+    :return: the result of the request
+    """
     if request.method == "POST":
         return addElement(request.json, id, user)
     elif request.method == "DELETE":
@@ -56,6 +75,18 @@ def category(user, id):
 
 @app.route("/<user>/<category>/objects/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 def object_elt(user, category, id):
+    """
+    action on a certain id from objects:
+        POST: create an object with the current id in the current category associated with the user profile,
+            error if the id is already taken
+        DELETE: remove the object by id
+        PATCH: modify the object by id
+        GET: get data of the object by id
+    :param user: user profile
+    :param category: category where the object is
+    :param id: object id
+    :return: the result of the request
+    """
     if request.method == "POST":
         return addElement(request.json, id, user, category)
     elif request.method == "DELETE":
@@ -87,10 +118,20 @@ def page_categories(value):
 def page_objets(value):
     if request.method == "GET":
         return paginate.get_objets(value)
+    """
+    get all users
+    :return: the list of all users
+    """
+    return get.get_users(request.json)
 
 
 @app.route("/<user>/categories")
 def get_categories(user):
+    """
+    get all categories in the user profile defined
+    :param user: user profile
+    :return: the list of all categories in the user profile
+    """
     return get.get_categories(request.json, user)
 
 
@@ -101,6 +142,12 @@ def limited_categories(user, value):
 
 @app.route("/<user>/<category>/objects")
 def get_objects(user, category):
+    """
+    get all objects in the current categories with the user profile
+    :param user: user profile
+    :param category: category of the object
+    :return: the list of objects
+    """
     return get.get_objects(request.json, user, category)
 
 
