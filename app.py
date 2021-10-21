@@ -5,6 +5,7 @@ from flask import Flask, request
 
 from methods import get
 from methods import patch
+from methods import limit
 import os
 
 from methods.delete import *
@@ -32,6 +33,12 @@ def user(id):
         return patch.patchuser(id)
     elif request.method == "GET":
         return get.get_user(id)
+
+
+@app.route("/users/limit/<value>", methods=["GET"])
+def users_limited(value):
+    if request.method == "GET":
+        return limit.get_users(value)
 
 
 @app.route("/<user>/categories/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
@@ -68,9 +75,19 @@ def get_categories(user):
     return get.get_categories(request.json, user)
 
 
+@app.route("/<user>/categories/limit/<value>")
+def limited_categories(user, value):
+    return limit.get_categories(user, value)
+
+
 @app.route("/<user>/<category>/objects")
 def get_objects(user, category):
     return get.get_objects(request.json, user, category)
+
+
+@app.route("/<user>/<category>/objects/limit/<value>")
+def limited_objects(user, category, value):
+    return limit.get_objects(user, category, value)
 
 
 @app.errorhandler(404)
