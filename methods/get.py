@@ -11,9 +11,6 @@ def get_users():
     :return: the list of users
     """
     users = clients().PythonProject.users.find()
-    if not json:
-        json = {}
-    users = clients().PythonProject.users.find(filter.all_filter(json))
     return flask.jsonify([user for user in users])
 
 
@@ -40,14 +37,10 @@ def get_categories(json, user):
     :param user: name of the user
     :return: list of user's categories
     """
-    if not json:
-        json = {}
     try:
-        users = clients().PythonProject.users.find({"name": user})
+        users = clients().PythonProject.firstTest.find({"name": user})
         client = ([user["_id"] for user in users])
-
-        json["user_id"] = client[0]
-        categories = clients().PythonProject.categories.find(filter.all_filter(json))
+        categories = clients().PythonProject.category.find({"user_id": client[0]})
     except BulkWriteError as e:
 
         return flask.jsonify(message="error",
@@ -64,7 +57,7 @@ def get_category(id):
     :return: category
     """
     try:
-        categories = clients().PythonProject.categories.find({"_id": int(id)})
+        categories = clients().PythonProject.category.find({"_id": int(id)})
     except BulkWriteError as e:
 
         return flask.jsonify(message="error",
@@ -82,16 +75,12 @@ def get_objects(json, user, cat):
     :param cat: name of category
     :return: the  object belonging to a person and a category
     """
-    if not json:
-        json = {}
     try:
-        categories = clients().PythonProject.categories.find({"name": cat})
+        categories = clients().PythonProject.category.find({"name": cat})
         category = ([categorie["_id"] for categorie in categories])
-        users = clients().PythonProject.users.find({"name": user})
-        user = ([i["_id"] for i in users])
-        json["user_id"] = user[0]
-        json["user_id"] = category[0]
-        objets = clients().PythonProject.objects.find(filter.all_filter(json))
+        users = clients().PythonProject.firstTest.find({"name": user})
+        use = ([i["_id"] for i in users])
+        objets = clients().PythonProject.object.find({"category_id": category[0], "user_id": use[0]})
     except BulkWriteError as e:
 
         return flask.jsonify(message="error",
@@ -110,11 +99,11 @@ def get_object(user, cat, id):
     :return: the object belonging to a person and a category
     """
     try:
-        categories = clients().PythonProject.categories.find({"name": cat})
+        categories = clients().PythonProject.category.find({"name": cat})
         category = ([categorie["_id"] for categorie in categories])
-        users = clients().PythonProject.users.find({"name": user})
+        users = clients().PythonProject.firstTest.find({"name": user})
         use = ([i["_id"] for i in users])
-        objets = clients().PythonProject.objects.find({"_id": int(id), "category_id": category[0], "user_id": use[0]})
+        objets = clients().PythonProject.object.find({"_id": int(id), "category_id": category[0], "user_id": use[0]})
     except BulkWriteError as e:
 
         return flask.jsonify(message="error",
