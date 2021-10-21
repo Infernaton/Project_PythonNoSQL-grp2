@@ -39,7 +39,7 @@ def patchuser(value):
 def patchcategorie(id):
     try:
 
-        result = clients().PythonProject.category.update_one(
+        result = clients().PythonProject.categories.update_one(
             {
                 '_id': int(id)
             },
@@ -68,7 +68,7 @@ def patchcategorie(id):
 def patchobjet(id):
     try:
 
-        result = clients().PythonProject.object.update_one(
+        result = clients().PythonProject.objects.update_one(
             {
                 '_id': int(id)
             },
