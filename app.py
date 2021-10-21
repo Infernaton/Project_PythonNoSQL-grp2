@@ -31,12 +31,7 @@ def user(id):
     elif request.method == "PATCH":
         return patch.patchuser(id)
     elif request.method == "GET":
-        return get.getuser(id)
-
-
-@app.route("/users")
-def get_users():
-    return get.getusers()
+        return get.get_user(id)
 
 
 @app.route("/<user>/categories/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
@@ -48,15 +43,7 @@ def category(user, id):
     elif request.method == "PATCH":
         return patch.patchcategorie(id)
     elif request.method == "GET":
-        return get.getcategorie(id)
-
-
-@app.route("/<user>/categories", methods=["GET", "PATCH"])
-def categorie_elt(user):
-    if request.method == "GET":
-        return get.getcategories(user)
-    elif request.method == "PATCH":
-        return patch.patchcategorie(user)
+        return get.get_category(id)
 
 
 @app.route("/<user>/<category>/objects/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
@@ -68,12 +55,22 @@ def object_elt(user, category, id):
     elif request.method == "PATCH":
         return patch.patchobjet(id)
     elif request.method == "GET":
-        return get.getobjet(user, category, id)
+        return get.get_object(user, category, id)
+
+
+@app.route("/users")
+def get_users():
+    return get.get_users(request.json)
+
+
+@app.route("/<user>/categories")
+def get_categories(user):
+    return get.get_categories(request.json, user)
 
 
 @app.route("/<user>/<category>/objects")
 def get_objects(user, category):
-    return get.getobject(user, category)
+    return get.get_objects(request.json, user, category)
 
 
 @app.errorhandler(404)
