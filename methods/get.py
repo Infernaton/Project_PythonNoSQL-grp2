@@ -1,26 +1,33 @@
 import flask
 from pymongo.errors import BulkWriteError
 
+from methods.jsonToReturn import json_return
 from mongo import clients
 
 
-def get_users(json):
+def get_users():
     """
     get all the users
     :return: the list of users
     """
-    users = clients().PythonProject.firstTest.find()
+    users = clients().PythonProject.users.find()
     return flask.jsonify([user for user in users])
 
 
 def get_user(value):
     """
-    returns the user whose id is passed in parameter
-    :param value: id of user
-    :return: user
+           returns the user whose id is passed in parameter
+           :param value: id of user
+           :return: user
     """
-    users = clients().PythonProject.firstTest.find({"_id": int(value)})
-    return flask.jsonify([user for user in users])
+    try:
+        users = clients().PythonProject.users.find({"_id": int(value)})
+        if len(([user for user in users])) == 0:
+            return json_return(500, "Id doesn't exists in database please find another id", 500)
+        users = clients().PythonProject.users.find({"_id": int(value)})
+        return flask.jsonify([user for user in users])
+    except ValueError:
+        return json_return(500, "There is a problem with your id it must be an integer and must exist in database", 500)
 
 
 def get_categories(json, user):

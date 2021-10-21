@@ -1,6 +1,7 @@
 import flask
 from pymongo.errors import BulkWriteError
 
+from methods.jsonToReturn import json_return
 from mongo import clients
 from flask import request
 
@@ -12,7 +13,7 @@ def patchuser(value):
     :return: the user updated
     """
     try:
-        result = clients().PythonProject.firstTest.update_one(
+        result = clients().PythonProject.users.update_one(
             {
                 '_id': int(value)
             },
@@ -27,11 +28,10 @@ def patchuser(value):
                 },
             }
         )
-    except BulkWriteError as e:
-        return flask.jsonify(message="error",
-                             details=e.details,
-                             inserted=e.details['nInserted'],
-                             duplicates=[x['op'] for x in e.details['writeErrors']])
+    except TypeError:
+        return json_return(500, "there is a problem with your input it must be a json object", 500)
+    except KeyError:
+        return json_return(500, "your datas must be like : {'name':'<your name>','data':'{}'", 500)
 
     return "updated"
 

@@ -6,6 +6,7 @@ from flask import Flask, request
 from methods import get
 from methods import patch
 from methods import limit
+from methods import paginate
 import os
 
 from methods.delete import *
@@ -67,7 +68,25 @@ def object_elt(user, category, id):
 
 @app.route("/users")
 def get_users():
-    return get.get_users(request.json)
+    return get.get_users()
+
+
+@app.route("/users/page/<value>", methods=["GET"])
+def page_users(value):
+    if request.method == "GET":
+        return paginate.get_users(value)
+
+
+@app.route("/categories/page/<value>", methods=["GET"])
+def page_categories(value):
+    if request.method == "GET":
+        return paginate.get_categories(value)
+
+
+@app.route("/objets/page/<value>", methods=["GET"])
+def page_objets(value):
+    if request.method == "GET":
+        return paginate.get_objets(value)
 
 
 @app.route("/<user>/categories")
