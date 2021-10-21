@@ -2,17 +2,17 @@ from methods.jsonToReturn import *
 from methods.gestionDB import *
 
 
-def addElement(json, id_elt, user="", category=""):
+def addElement(json, id, user="", category=""):
     """
     Add a element to the DB, that can be a user, a categorie or an object
     :param json: the data in json form to add in the DB
-    :param id_elt: the current element
+    :param id: the current element
     :param user: we need to specified it, if it a category or an object (data from the url)
     :param category:  we need to specified it, if it an object (data from the url)
     :return: a json message which announced the result of the request
     """
 
-    json["_id"] = int(id_elt)
+    json["_id"] = int(id)
     if user != "":
         user_id = find_id_user(user)
         if not user_id:
@@ -25,22 +25,22 @@ def addElement(json, id_elt, user="", category=""):
                 return json_return(11, "Category can't be found")
             else:
                 json["category_id"] = category_id
-            return id_exist(clients().PythonProject.object, id_elt, json)
+            return id_exist(clients().PythonProject.object, id, json)
         else:
-            return id_exist(clients().PythonProject.category, id_elt, json)
+            return id_exist(clients().PythonProject.category, id, json)
     else:
-        return id_exist(clients().PythonProject.firstTest, id_elt, json)
+        return id_exist(clients().PythonProject.firstTest, id, json)
 
 
-def id_exist(db_name, id_elt, json):
+def id_exist(db_name, id, json):
     """
     Test if the element we try to add have a correct id, test if the place with the id is not already taken
     :param db_name: the db to search with the id
-    :param id_elt: the element
+    :param id: the element
     :param json: json to add to the db
     :return: the search
     """
-    test_id = db_name.find({"_id": int(id_elt)})
+    test_id = db_name.find({"_id": int(id)})
     test_id = flask.jsonify([user for user in test_id]).json
     if len(test_id) == 0:
         db_name.insert_one(json)
