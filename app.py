@@ -5,6 +5,8 @@ from flask import Flask, request
 
 from methods import get
 import os
+
+from methods.delete import *
 from methods.post import *
 
 app = Flask(__name__)
@@ -23,7 +25,7 @@ def user(id_elt):
     if request.method == "POST":
         return addElement(request.json, id_elt)
     elif request.method == "DELETE":
-        return "DELETE"
+        return deleteElement(id)
     elif request.method == "PATCH":
         return "PATCH"
     elif request.method == "GET":
@@ -40,7 +42,7 @@ def category(user, id_elt):
     if request.method == "POST":
         return addElement(request.json, id_elt, user)
     elif request.method == "DELETE":
-        return "DELETE"
+        return deleteElement(id, user)
     elif request.method == "PATCH":
         return "PATCH"
     elif request.method == "GET":
@@ -57,7 +59,7 @@ def object_elt(user, category, id_elt):
     if request.method == "POST":
         return addElement(request.json, id_elt, user, category)
     elif request.method == "DELETE":
-        return "DELETE"
+        return deleteElement(id, user)
     elif request.method == "PATCH":
         return "PATCH"
     elif request.method == "GET":
