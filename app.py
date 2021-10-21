@@ -1,9 +1,10 @@
 # -* - coding: Utf - 8 -*-
 
 import flask
-from flask import Flask,  request
+from flask import Flask, request
 
 from methods import get
+from methods import patch
 import os
 from methods.post import *
 
@@ -35,16 +36,16 @@ def modify_user(id):
 """
 
 
-@app.route("/users/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
+@app.route("/user/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 def user(id):
     if request.method == "POST":
         return addElement(request.json, id, user)
     elif request.method == "DELETE":
         return "DELETE"
     elif request.method == "PATCH":
-        return "PATCH"
+        return patch.patchuser(id)
     elif request.method == "GET":
-        return get.getusers()
+        return get.getuser(id)
 
 
 @app.route("/users")
@@ -59,14 +60,17 @@ def category(user, id):
     elif request.method == "DELETE":
         return "DELETE"
     elif request.method == "PATCH":
-        return "PATCH"
+        return patch.patchcategorie(id)
     elif request.method == "GET":
-        return "GET"
+        return get.getcategorie(id)
 
 
-@app.route("/<user>/categories")
-def get_categories(user):
-    return "GET USERS"
+@app.route("/<user>/categorie", methods=["GET", "PATCH"])
+def categorie_elt(user):
+    if request.method == "GET":
+        return get.getcategories(user)
+    elif request.method == "PATCH":
+        return patch.patchcategorie(user)
 
 
 @app.route("/<user>/<category>/objects/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
@@ -76,14 +80,14 @@ def object_elt(user, category, id):
     elif request.method == "DELETE":
         return "DELETE"
     elif request.method == "PATCH":
-        return "PATCH"
+        return patch.patchobjet(id)
     elif request.method == "GET":
-        return "GET"
+        return get.getobjet(user, category, id)
 
 
 @app.route("/<user>/<category>/objects")
 def get_objects(user, category):
-    return "GET USERS"
+    return get.getobject(user, category)
 
 
 @app.errorhandler(404)
