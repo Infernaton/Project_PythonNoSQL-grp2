@@ -1,19 +1,18 @@
+from mongo import clients
 from methods.jsonToReturn import *
 from methods.gestionDB import *
 
 
-def addElement(json, id_elt, user="", category=""):
+def deleteElement(id, user="", category=""):
     """
-    Add a element to the DB, that can be a user, a categorie or an object
-    :param json: the data in json form to add in the DB
-    :param id_elt: the current element
+    Delete function for a given id, user or a category.
+    :param id: the current element
     :param user: we need to specified it, if it a category or an object (data from the url)
-    :param category:  we need to specified it, if it an object (data from the url)
-    :return: a json message which announced the result of the request
+    :param category: we need to specified it, if it an object (data from the url)
+    :return: element deleted
     """
-
-    json["_id"] = int(id_elt)
-    if user != "":
+    json = {"_id": int(id)}
+    if user !="":
         user_id = find_id_user(user)
         if not user_id:
             return json_return(10, "User can't be found")
@@ -25,11 +24,11 @@ def addElement(json, id_elt, user="", category=""):
                 return json_return(11, "Category can't be found")
             else:
                 json["category_id"] = category_id
-            return id_exist(clients().PythonProject.object, id_elt, json)
+            return id_exist(clients().PythonProject.object, id, json)
         else:
-            return id_exist(clients().PythonProject.category, id_elt, json)
+            return id_exist(clients().PythonProject.category, id, json)
     else:
-        return id_exist(clients().PythonProject.firstTest, id_elt, json)
+        return id_exist(clients().PythonProject.firstTest, id, json)
 
 
 def id_exist(db_name, id_elt, json):
@@ -42,8 +41,8 @@ def id_exist(db_name, id_elt, json):
     """
     test_id = db_name.find({"_id": int(id_elt)})
     test_id = flask.jsonify([user for user in test_id]).json
-    if len(test_id) == 0:
-        db_name.insert_one(json)
-        return json_return(0, "Successfully add !")
+    if len(test_id) != 0:
+        db_name.delete_one(json)
+        return json_return(0, "Successfully remove !")
     else:
-        return json_return(9, "ID already taken")
+        return json_return(9, "ID doesn't exist")

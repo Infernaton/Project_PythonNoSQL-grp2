@@ -6,46 +6,31 @@ from flask import Flask, request
 from methods import get
 from methods import patch
 import os
+
+from methods.delete import *
 from methods.post import *
 
 app = Flask(__name__)
 
 """
-@app.route("/users/<id>", methods=["PATCH", "DELETE", "POST"])
-def modify_user(id):
-    error_code = "000"
-    error_message = "Success !"
-    if request.method == "PATCH":
-        json_data = request.json["modify"]
-        with open(f"users/{id}.txt", "r+") as f:
-            content = f.read().split("\n")
-            if json_data["firstname"] != "":
-                content[0] = json_data["firstname"]
-            if json_data["name"] != "":
-                content[1] = json_data["name"]
-            if json_data["age"] != "":
-                content[2] = json_data["age"]
-            f.seek(0)
-            f.write('\n'.join(content))
-
-    return {
-        "status": 200,
-        "error_code": error_code,
-        "error_message": error_message
-    }
+User input of any element
+{
+    "name": element_name,
+    "data": {}
+}
 """
 
 
-@app.route("/user/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
-def user(id):
+@app.route("/users/<id_elt>", methods=["POST", "DELETE", "PATCH", "GET"])
+def user(id_elt):
     if request.method == "POST":
-        return addElement(request.json, id, user)
+        return addElement(request.json, id_elt)
     elif request.method == "DELETE":
-        return "DELETE"
+        return deleteElement(id)
     elif request.method == "PATCH":
         return patch.patchuser(id)
     elif request.method == "GET":
-        return get.getuser(id)
+        return get.getuser(id_elt)
 
 
 @app.route("/users")
@@ -53,12 +38,12 @@ def get_users():
     return get.getusers()
 
 
-@app.route("/<user>/categories/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
-def category(user, id):
+@app.route("/<user>/categories/<id_elt>", methods=["POST", "DELETE", "PATCH", "GET"])
+def category(user, id_elt):
     if request.method == "POST":
-        return addElement(request.json, id, user)
+        return addElement(request.json, id_elt, user)
     elif request.method == "DELETE":
-        return "DELETE"
+        return deleteElement(id, user)
     elif request.method == "PATCH":
         return patch.patchcategorie(id)
     elif request.method == "GET":
@@ -73,12 +58,12 @@ def categorie_elt(user):
         return patch.patchcategorie(user)
 
 
-@app.route("/<user>/<category>/objects/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
-def object_elt(user, category, id):
+@app.route("/<user>/<category>/objects/<id_elt>", methods=["POST", "DELETE", "PATCH", "GET"])
+def object_elt(user, category, id_elt):
     if request.method == "POST":
-        return addElement(request.json, id, user)
+        return addElement(request.json, id_elt, user, category)
     elif request.method == "DELETE":
-        return "DELETE"
+        return deleteElement(id, user)
     elif request.method == "PATCH":
         return patch.patchobjet(id)
     elif request.method == "GET":
