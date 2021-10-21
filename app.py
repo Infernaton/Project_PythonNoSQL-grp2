@@ -9,6 +9,7 @@ import os
 
 from methods.delete import *
 from methods.post import *
+from methods.jsonToReturn import *
 
 app = Flask(__name__)
 
@@ -50,7 +51,7 @@ def category(user, id):
         return get.getcategorie(id)
 
 
-@app.route("/<user>/categorie", methods=["GET", "PATCH"])
+@app.route("/<user>/categories", methods=["GET", "PATCH"])
 def categorie_elt(user):
     if request.method == "GET":
         return get.getcategories(user)
@@ -77,12 +78,12 @@ def get_objects(user, category):
 
 @app.errorhandler(404)
 def not_found(error):
-    return error
+    return json_return(000, "Page not Found", 404)
 
 
 @app.errorhandler(500)
 def internal_error(error):
-    return error
+    return json_return(000, "Time Out", 500)
 
 
 if __name__ == '__main__':
