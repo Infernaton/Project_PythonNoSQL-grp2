@@ -6,5 +6,5 @@ def all_filter(json):
     :return: the transform json
     """
     if 'name' in json:
-        json["name"] = {"$regex": u"" + json['name'] + ""}
+        json["name"] = {"$regex": u"" + str(json['name']) + ""}
     return json

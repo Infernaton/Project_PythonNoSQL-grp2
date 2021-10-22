@@ -177,6 +177,11 @@ def methods_not_allowed(error):
     return json_return(3, f"Method '{request.method}' not allowed in: {request.url}", 405)
 
 
+@app.errorhandler(400)
+def bad_request(error):
+    return json_return(3, "Bad request send, change the sending json", 400)
+
+
 if __name__ == '__main__':
     app.run(
         host="0.0.0.0",
