@@ -46,7 +46,8 @@ def get_categories(json, user):
     try:
         users = clients().PythonProject.users.find({"name": user})
         client = ([user["_id"] for user in users])
-
+        if len(client) == 0:
+            return json_return(4, "User defined doesn't exist")
         json["user_id"] = client[0]
         categories = clients().PythonProject.categories.find(filter.all_filter(json))
     except BulkWriteError as e:
@@ -58,14 +59,19 @@ def get_categories(json, user):
     return flask.jsonify(([category for category in categories]))
 
 
-def get_category(id):
+def get_category(id, user):
     """
     get a category
     :param id: id of category
     :return: category
     """
     try:
-        categories = clients().PythonProject.categories.find({"_id": int(id)})
+        users = clients().PythonProject.users.find({"name": user})
+        client = ([user["_id"] for user in users])
+        if len(client) == 0:
+            return json_return(4, "User defined doesn't exist")
+
+        categories = clients().PythonProject.categories.find({"_id": int(id), "user_id": client[0]})
     except BulkWriteError as e:
 
         return flask.jsonify(message="error",
@@ -90,6 +96,10 @@ def get_objects(json, user, cat):
         category = ([categorie["_id"] for categorie in categories])
         users = clients().PythonProject.users.find({"name": user})
         user = ([i["_id"] for i in users])
+        if len(user) == 0:
+            return json_return(4, "User defined doesn't exist")
+        if len(category) == 0:
+            return json_return(5, "Category defined doesn't exist")
         json["user_id"] = user[0]
         json["category_id"] = category[0]
         objets = clients().PythonProject.objects.find(filter.all_filter(json))
@@ -114,8 +124,13 @@ def get_object(user, cat, id):
         categories = clients().PythonProject.categories.find({"name": cat})
         category = ([categorie["_id"] for categorie in categories])
         users = clients().PythonProject.users.find({"name": user})
-        use = ([i["_id"] for i in users])
-        objets = clients().PythonProject.objects.find({"_id": int(id), "category_id": category[0], "user_id": use[0]})
+        user = ([i["_id"] for i in users])
+        if len(user) == 0:
+            return json_return(4, "User defined doesn't exist")
+        if len(category) == 0:
+            return json_return(5, "Category defined doesn't exist")
+
+        objets = clients().PythonProject.objects.find({"_id": int(id), "category_id": category[0], "user_id": user[0]})
     except BulkWriteError as e:
 
         return flask.jsonify(message="error",

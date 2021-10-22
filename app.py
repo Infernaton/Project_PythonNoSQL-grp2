@@ -72,7 +72,7 @@ def category(user, id):
     elif request.method == "PATCH":
         return patch.patchcategorie(id)
     elif request.method == "GET":
-        return get.get_category(id)
+        return get.get_category(id, user)
 
 
 @app.route("/<user>/<category>/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
