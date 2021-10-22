@@ -58,20 +58,9 @@ def get_categories(json, user):
     return flask.jsonify(([category for category in categories]))
 
 
-def get_category(id):
-    """
-    get a category
-    :param id: id of category
-    :return: category
-    """
-    try:
-        categories = clients().PythonProject.categories.find({"_id": int(id)})
-    except BulkWriteError as e:
-
-        return flask.jsonify(message="error",
-                             details=e.details,
-                             inserted=e.details['nInserted'],
-                             duplicates=[x['op'] for x in e.details['writeErrors']])
+def get_category(user, id):
+    users = clients().PythonProject.cusers.find({"name": user})
+    categories = clients().PythonProject.categories.find({"_id": int(id)}, {"user_id"})
     return flask.jsonify(([category for category in categories]))
 
 

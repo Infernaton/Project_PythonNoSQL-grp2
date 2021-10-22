@@ -1,3 +1,6 @@
+from flask import url_for
+from werkzeug.utils import redirect
+
 from methods.jsonToReturn import *
 from methods.gestionDB import *
 

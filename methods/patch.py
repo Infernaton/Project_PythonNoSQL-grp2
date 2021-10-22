@@ -13,21 +13,23 @@ def patchuser(value):
     :return: the user updated
     """
     try:
-        result = clients().PythonProject.users.update_one(
-            {
-                '_id': int(value)
-            },
-            {"$set":
+        datas = [request.get_json()["name"], request.get_json()["name"], request.get_json()["name"]]
+        if request.get_json()["name"]:
+            result = clients().PythonProject.users.update_one(
                 {
-                    "name": request.get_json()["name"],
-                    "data":
-                        {
-                            "lastname": request.get_json()["data"]["lastname"],
-                            "age": request.get_json()["data"]["age"]
-                        }
+                    '_id': int(value)
                 },
-            }
-        )
+                {"$set":
+                    {
+                        "name": request.get_json()["name"],
+                        "data":
+                            {
+                                "lastname": request.get_json()["data"]["lastname"],
+                                "age": request.get_json()["data"]["age"]
+                            }
+                    }
+                }
+            )
     except TypeError:
         return json_return(500, "there is a problem with your input it must be a json object", 500)
     except KeyError:

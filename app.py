@@ -70,7 +70,7 @@ def category(user, id):
     elif request.method == "PATCH":
         return patch.patchcategorie(id)
     elif request.method == "GET":
-        return get.get_category(id)
+        return get.get_category(user, id)
 
 
 @app.route("/<user>/<category>/objects/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
@@ -99,7 +99,7 @@ def object_elt(user, category, id):
 
 @app.route("/users")
 def get_users():
-    return get.get_users(request.json)
+    return get.get_users(request.get_json())
 
 
 @app.route("/users/page/<value>", methods=["GET"])
