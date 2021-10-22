@@ -2,10 +2,11 @@ import flask
 from pymongo.errors import BulkWriteError
 
 from methods.jsonToReturn import json_return
+from methods import filter
 from mongo import clients
 
 
-def get_users():
+def get_users(json):
     """
     get all the users
     :return: the list of users
