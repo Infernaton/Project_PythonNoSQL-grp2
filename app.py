@@ -99,7 +99,7 @@ def object_elt(user, category, id):
 
 @app.route("/users")
 def get_users():
-    return get.get_users()
+    return get.get_users(request.json)
 
 
 @app.route("/users/page/<value>", methods=["GET"])

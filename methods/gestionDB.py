@@ -28,3 +28,19 @@ def find_id_category(category):
         return id[0]["_id"]
     else:
         return False
+
+
+def find_existed_name(db, name_elt):
+    """
+    find in the db an element by name
+    :param db: the db to search
+    :param name_elt: the name element
+    :return: the data if it found one, or false
+    """
+    datas = db.find({"name": name_elt})
+    datas = flask.jsonify([data for data in datas]).json
+    if len(datas) != 0:
+        return datas
+    else:
+        return False
+
