@@ -158,12 +158,17 @@ def limited_objects(user, category, value):
 
 @app.errorhandler(404)
 def not_found(error):
-    return json_return(000, "Page not Found", 404)
+    return json_return(1, "Page not Found", 404)
 
 
 @app.errorhandler(500)
 def internal_error(error):
-    return json_return(000, "Internal Server error", 500)
+    return json_return(2, "Internal Server error", 500)
+
+
+@app.errorhandler(405)
+def methods_not_allowed(error):
+    return json_return(3, f"Method '{request.method}' not allowed in: {request.url}", 405)
 
 
 if __name__ == '__main__':
