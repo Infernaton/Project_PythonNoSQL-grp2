@@ -40,12 +40,13 @@ def id_exist(db_name, id, json):
     :param json: json to add to the db
     :return: the search
     """
+    if not find_existed_name(db_name, json['name']):
+        return json_return(9, "Name Already in use")
+
     test_id = db_name.find({"_id": int(id)})
     test_id = flask.jsonify([user for user in test_id]).json
     if len(test_id) == 0:
         db_name.insert_one(json)
         return json_return(0, "Successfully add !")
-    elif not find_existed_name(db_name, json['name']):
-        return json_return(9, "Name Already in use")
     else:
         return json_return(8, "ID already taken")
