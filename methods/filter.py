@@ -5,6 +5,7 @@ def all_filter(json):
     :param json: the research
     :return: the transform json
     """
+    json.pop('data', None)
     if 'name' in json:
         json["name"] = {"$regex": u"" + str(json['name']) + ""}
     return json

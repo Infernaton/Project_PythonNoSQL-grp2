@@ -14,6 +14,13 @@ def add_element(json, id, user="", category=""):
     :param category:  we need to specified it, if it an object (data from the url)
     :return: a json message which announced the result of the request
     """
+    if 'name' not in json:
+        return json_return(12, "There must be a key 'name' in your request")
+    if 'data' not in json:
+        return json_return(13, "There must be a key 'data' in your request")
+
+    if json["name"] == "":
+        return json_return(14, "You must specified a valid 'name' value")
 
     json["_id"] = int(id)
     if user != "":

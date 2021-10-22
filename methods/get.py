@@ -36,7 +36,7 @@ def get_user(value):
 
 def get_categories(json, user):
     """
-    get the categorie of the user
+    get the category of the user
     :param json: data to search with
     :param user: name of the user
     :return: list of user's categories
