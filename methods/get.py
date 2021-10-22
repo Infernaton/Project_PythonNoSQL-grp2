@@ -91,7 +91,7 @@ def get_objects(json, user, cat):
         users = clients().PythonProject.users.find({"name": user})
         user = ([i["_id"] for i in users])
         json["user_id"] = user[0]
-        json["user_id"] = category[0]
+        json["category_id"] = category[0]
         objets = clients().PythonProject.objects.find(filter.all_filter(json))
     except BulkWriteError as e:
 

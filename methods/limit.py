@@ -6,8 +6,8 @@ from mongo import clients
 
 def get_users(limit):
     uses = []
+    users = clients().PythonProject.users.find()
     for i in range(int(limit)):
-        users = clients().PythonProject.firstTest.find()
         uses.append(users[i])
     return flask.jsonify([user for user in uses])
 

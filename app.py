@@ -24,6 +24,7 @@ User input of any element
 """
 
 
+@app.route("/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 @app.route("/users/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 def user(id):
     """
@@ -51,6 +52,7 @@ def users_limited(value):
         return limit.get_users(value)
 
 
+@app.route("/<user>/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 @app.route("/<user>/categories/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 def category(user, id):
     """
@@ -73,6 +75,7 @@ def category(user, id):
         return get.get_category(id)
 
 
+@app.route("/<user>/<category>/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 @app.route("/<user>/<category>/objects/<id>", methods=["POST", "DELETE", "PATCH", "GET"])
 def object_elt(user, category, id):
     """
@@ -97,6 +100,7 @@ def object_elt(user, category, id):
         return get.get_object(user, category, id)
 
 
+@app.route("/")
 @app.route("/users")
 def get_users():
     return get.get_users(request.json)
@@ -125,6 +129,7 @@ def page_objets(value):
     return get.get_users(request.json)
 
 
+@app.route("/<user>/")
 @app.route("/<user>/categories")
 def get_categories(user):
     """
@@ -140,6 +145,7 @@ def limited_categories(user, value):
     return limit.get_categories(user, value)
 
 
+@app.route("/<user>/<category>/")
 @app.route("/<user>/<category>/objects")
 def get_objects(user, category):
     """
