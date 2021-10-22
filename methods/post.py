@@ -51,5 +51,6 @@ def id_exist(db_name, id, json):
     if len(test_id) == 0:
         db_name.insert_one(json)
         return json_return(0, "Successfully add !")
+
     else:
         return json_return(8, "ID already taken")

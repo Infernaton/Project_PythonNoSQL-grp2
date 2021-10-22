@@ -1,9 +1,10 @@
 import flask
 from pymongo.errors import BulkWriteError
+from werkzeug.utils import redirect
 
 from methods.jsonToReturn import json_return
 from mongo import clients
-from flask import request
+from flask import request, url_for
 
 
 def patchuser(value):
@@ -35,7 +36,7 @@ def patchuser(value):
     except KeyError:
         return json_return(500, "your datas must be like : {'name':'<your name>','data':'{}'", 500)
 
-    return "updated"
+    return redirect(url_for("get_users"))
 
 
 def patchcategorie(id):
