@@ -8,7 +8,7 @@ def find_id_user(name):
     :param name:
     :return: the id if exist
     """
-    id = clients().PythonProject.firstTest.find({"name": name}, {"_id": 1})
+    id = clients().PythonProject.users.find({"name": name}, {"_id": 1})
     id = flask.jsonify([user for user in id]).json
     if len(id) != 0:
         return id[0]["_id"]
@@ -22,7 +22,7 @@ def find_id_category(category):
     :param category:
     :return: the id if exist
     """
-    id = clients().PythonProject.category.find({"name": category}, {"_id": 1})
+    id = clients().PythonProject.categories.find({"name": category}, {"_id": 1})
     id = flask.jsonify([user for user in id]).json
     if len(id) != 0:
         return id[0]["_id"]

@@ -24,11 +24,11 @@ def deleteElement(id, user="", category=""):
                 return json_return(11, "Category can't be found")
             else:
                 json["category_id"] = category_id
-            return id_exist(clients().PythonProject.object, id, json)
+            return id_exist(clients().PythonProject.objects, id, json)
         else:
-            return id_exist(clients().PythonProject.category, id, json)
+            return id_exist(clients().PythonProject.categories, id, json)
     else:
-        return id_exist(clients().PythonProject.firstTest, id, json)
+        return id_exist(clients().PythonProject.users, id, json)
 
 
 def id_exist(db_name, id_elt, json):
