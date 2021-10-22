@@ -26,21 +26,23 @@ def delete_element(id, user="", category=""):
                 json["category_id"] = category_id
             return id_exist(clients().PythonProject.objects, id, json)
         else:
+            clients().PythonProject.objects.delete_many({"category_id": int(id)})
             return id_exist(clients().PythonProject.categories, id, json)
     else:
-
+        clients().PythonProject.objects.delete_many({"user_id": int(id)})
+        clients().PythonProject.categories.delete_many({"user_id": int(id)})
         return id_exist(clients().PythonProject.users, id, json)
 
 
-def id_exist(db_name, id_elt, json):
+def id_exist(db_name, id, json):
     """
     Test if the element we try to delete have a correct id, test if the place with the id is not already taken
     :param db_name: the db to search with the id
-    :param id_elt: the element
+    :param id: the element
     :param json: json to add to the db
     :return: the search
     """
-    test_id = db_name.find({"_id": int(id_elt)})
+    test_id = db_name.find({"_id": int(id)})
     test_id = flask.jsonify([user for user in test_id]).json
     if len(test_id) != 0:
         db_name.delete_one(json)
