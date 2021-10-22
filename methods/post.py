@@ -2,7 +2,7 @@ from methods.jsonToReturn import *
 from methods.gestionDB import *
 
 
-def addElement(json, id, user="", category=""):
+def add_element(json, id, user="", category=""):
     """
     Add a element to the DB, that can be a user, a categorie or an object
     :param json: the data in json form to add in the DB

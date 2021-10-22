@@ -36,9 +36,9 @@ def user(id):
     :return: the result of the request
     """
     if request.method == "POST":
-        return addElement(request.json, id)
+        return add_element(request.json, id)
     elif request.method == "DELETE":
-        return deleteElement(id)
+        return delete_element(id)
     elif request.method == "PATCH":
         return patch.patchuser(id)
     elif request.method == "GET":
@@ -64,9 +64,9 @@ def category(user, id):
     :return: the result of the request
     """
     if request.method == "POST":
-        return addElement(request.json, id, user)
+        return add_element(request.json, id, user)
     elif request.method == "DELETE":
-        return deleteElement(id, user)
+        return delete_element(id, user)
     elif request.method == "PATCH":
         return patch.patchcategorie(id)
     elif request.method == "GET":
@@ -88,9 +88,9 @@ def object_elt(user, category, id):
     :return: the result of the request
     """
     if request.method == "POST":
-        return addElement(request.json, id, user, category)
+        return add_element(request.json, id, user, category)
     elif request.method == "DELETE":
-        return deleteElement(id, user)
+        return delete_element(id, user)
     elif request.method == "PATCH":
         return patch.patchobjet(id)
     elif request.method == "GET":

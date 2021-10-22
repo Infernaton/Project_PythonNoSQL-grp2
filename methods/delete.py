@@ -3,7 +3,7 @@ from methods.jsonToReturn import *
 from methods.gestionDB import *
 
 
-def deleteElement(id, user="", category=""):
+def delete_element(id, user="", category=""):
     """
     Delete function for a given id, user or a category.
     :param id: the current element
@@ -12,7 +12,7 @@ def deleteElement(id, user="", category=""):
     :return: element deleted
     """
     json = {"_id": int(id)}
-    if user !="":
+    if user != "":
         user_id = find_id_user(user)
         if not user_id:
             return json_return(10, "User can't be found")
@@ -28,12 +28,13 @@ def deleteElement(id, user="", category=""):
         else:
             return id_exist(clients().PythonProject.categories, id, json)
     else:
+
         return id_exist(clients().PythonProject.users, id, json)
 
 
 def id_exist(db_name, id_elt, json):
     """
-    Test if the element we try to add have a correct id, test if the place with the id is not already taken
+    Test if the element we try to delete have a correct id, test if the place with the id is not already taken
     :param db_name: the db to search with the id
     :param id_elt: the element
     :param json: json to add to the db
