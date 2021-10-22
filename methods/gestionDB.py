@@ -39,8 +39,8 @@ def find_existed_name(db, name_elt):
     """
     datas = db.find({"name": name_elt})
     datas = flask.jsonify([data for data in datas]).json
-    if len(datas) != 0:
-        return datas
+    if len(datas) == 0:
+        return True
     else:
         return False
 
